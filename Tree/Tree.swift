@@ -24,3 +24,18 @@ extension TreeNode: CustomStringConvertible {
 		return s
 	}
 }
+
+// Search
+extension TreeNode where T : Equatable {
+	public func search(_ value: T) -> TreeNode? {
+		if (self.value == value) {
+			return self
+		}
+		for child in self.children {
+			if let found = child.search(value) {
+				return found
+			}
+		}
+		return nil
+	}
+}

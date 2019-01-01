@@ -12,4 +12,4 @@ cold.addChild(soda); cold.addChild(milk)
 beverages.addChild(hot)
 beverages.addChild(cold)
 
-print(beverages)
+print(beverages.search("Soda") ?? "nil")
