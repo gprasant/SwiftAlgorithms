@@ -105,6 +105,62 @@ public class BinarySearchTree<T: Comparable> {
 		}
 		return nil
 	}
+	
+	public func minimum() -> BinarySearchTree? {
+		var node = self 
+		while let next = node.left {
+			node = next
+		}
+		return node
+	}
+	
+	public func maximum() -> BinarySearchTree? {
+		var node = self
+		while let next = node.right {
+			node = next
+		}
+		return node
+	}
+	
+	public func connectParentTo(node: BinarySearchTree?) {
+		if let parent = parent {
+			if isLeftChild {
+				parent.left = node
+			} else if isRightChild {
+				parent.right = node
+			}
+		}
+		node?.parent = parent
+	}
+	
+	@discardableResult
+	public func remove() -> BinarySearchTree? {
+		// 1. find replacement node
+		var replacement: BinarySearchTree?
+		if let left = left {
+			replacement = left.maximum()
+		} else if let right = right {
+			replacement = right.minimum()
+		} else {
+			replacement = nil
+		}
+		
+		// remove replacement Node
+		replacement?.remove()
+		// copy replacement node at self's position. assign children, connect parent to copied node.
+		replacement?.left = left
+		replacement?.right = right
+		right?.parent = replacement
+		left?.parent = replacement
+		connectParentTo(node: replacement)
+		
+		// remove connections of current node - parent & children
+		left = nil
+		right = nil
+		parent = nil
+		// return replacement
+		return replacement
+	}
 }
 
 extension BinarySearchTree: CustomStringConvertible {
@@ -122,8 +178,3 @@ extension BinarySearchTree: CustomStringConvertible {
 		return s
 	}
 }
-
-
-let tree = BinarySearchTree(array: [7, 2, 5, 10, 9, 1])
-
-print(tree.searchIterative(7) ?? "nil")
