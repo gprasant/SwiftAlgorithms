@@ -1,5 +1,10 @@
 let tree = BinarySearchTree(array: [7, 2, 5, 10, 9, 1])
 
-let replaced = (tree.search(7)!.remove()!)
+print(tree.search(2)?.successor()?.value ?? "nil")
 
-print(tree)
+print(tree.isBST(minValue: Int.min, maxValue: Int.max))
+
+// breaking the isBST
+let node2 = tree.search(2)!
+node2.insert(value: 100)
+print(tree.isBST(minValue: Int.min, maxValue: Int.max))

@@ -161,6 +161,64 @@ public class BinarySearchTree<T: Comparable> {
 		// return replacement
 		return replacement
 	}
+	
+	// Height of a node is the distance to its lowest leaf
+	public func height() -> Int {
+		if isLeaf {
+			return 0
+		} else {
+			return 1 + max(left?.height() ?? 0, right?.height() ?? 0)
+		}
+	}
+	
+	// Depth of a node is the distance to its root
+	public func depth() -> Int {
+		var node = self 
+		var edges = 0
+		while let parent = node.parent {
+			edges += 1
+			node = parent
+		}
+		return edges
+	}
+	
+	public func predecessor() -> BinarySearchTree? {
+		if let left = left {
+			return left.maximum()
+		} else {
+			// look for parents till a lower value is found
+			var node = self
+			while let parent = node.parent {
+				if parent.value < self.value {
+					return parent
+				}
+				node = parent
+			}
+			return nil
+		}
+	}
+	
+	public func successor() -> BinarySearchTree? {
+		if let right = right {
+			return right.minimum()
+		} else {
+			var node = self
+			while let parent = node.parent {
+				if parent.value > self.value {
+					return parent
+				}
+				node = parent
+			}
+			return nil
+		}
+	}
+
+	public func isBST(minValue: T, maxValue: T) -> Bool {
+		if value < minValue || value > maxValue { return false }
+		let isLeftValid = left?.isBST(minValue: minValue, maxValue: value) ?? true
+		let isRightValid = right?.isBST(minValue: value, maxValue: maxValue) ?? true
+		return isLeftValid && isRightValid
+	}
 }
 
 extension BinarySearchTree: CustomStringConvertible {
