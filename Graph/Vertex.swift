@@ -1,7 +1,17 @@
 import Foundation 
 
-public struct Vertex<T: Hashable> {
+public class Vertex<T: Hashable> {
 	let data: T
+	var isVisited: Bool
+	
+	public convenience init(data: T) {
+		self.init(data: data, isVisited: false)
+	}
+	
+	public init(data: T, isVisited: Bool) {
+		self.data = data
+		self.isVisited = isVisited
+	}
 }
 
 extension Vertex: Hashable {

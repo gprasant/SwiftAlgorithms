@@ -45,6 +45,10 @@ let f = adjacencyList.createVertex(data: "F")
 let g = adjacencyList.createVertex(data: "G")
 let e = adjacencyList.createVertex(data: "E")
 
+
+let w = adjacencyList.createVertex(data: "W")
+let x = adjacencyList.createVertex(data: "X") 
+
 adjacencyList.add(.undirected, from: s, to: a, weight: nil)
 adjacencyList.add(.undirected, from: a, to: b, weight: nil)
 adjacencyList.add(.undirected, from: a, to: d, weight: nil)
@@ -54,4 +58,12 @@ adjacencyList.add(.undirected, from: d, to: g, weight: nil)
 adjacencyList.add(.undirected, from: d, to: f, weight: nil)
 adjacencyList.add(.undirected, from: f, to: e, weight: nil)
 
-print(adjacencyList.description)
+adjacencyList.add(.undirected, from: w, to: x, weight: nil)
+
+//depthFirstSearch(in: adjacencyList, from: s)
+
+//depthFirstSearch_rec(graph: adjacencyList, source: s, target: b)
+
+//print(pathExists(in: adjacencyList, from: s, to: w))
+
+print(breadthFirstSearch(in: adjacencyList, from: s, to: c))

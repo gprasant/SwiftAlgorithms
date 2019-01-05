@@ -7,12 +7,17 @@ public struct Stack<T> {
 		array.append(element)
 	}
 	
+	@discardableResult
 	public mutating func pop() -> T? {
 		return array.popLast()
 	}
 	
 	public func peek() -> T? {
 		return array.last
+	}
+	
+	public var count: Int {
+		return array.count
 	}
 }
 
